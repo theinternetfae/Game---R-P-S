@@ -1,0 +1,9 @@
+body {
+    text-align: center;
+}
+
+.counter {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
