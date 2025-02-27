@@ -1,4 +1,3 @@
-
 //PLAYER BUTTONS
 const stone = document.getElementById('rock');
 const  tissue = document.getElementById('paper');
@@ -21,139 +20,104 @@ const reset = document.getElementById('reset');
 
 
 
+function computerMove() {
+    let cMove = '';
+    let random = Math.random() * 3;
 
-let computerMove = '';
-
-stone.addEventListener('click', () => {
-    const number = Math.random();
-    wordOne.style.display = 'block';
-    let move = 'You play rock.'
-
-    if (number >= 0 && number < 1 / 3) {
-        computerMove = 'The computer plays rock.';
-    } else if (number >= 1 / 3 && number < 2 / 3) {
-        computerMove = 'The computer plays paper.';
-    } else if (number >= 2 / 3) {
-        computerMove = 'The computer plays scissors.';
+    if (random >= 0 && random < 1 / 3) {
+        cMove = 'Rock';
+    } else if (random >= 1 / 3 && random < 2 / 3) {
+        cMove = 'Paper';
+    } else if (random >= 2 / 3) {
+        cMove = 'Scissors';
     }
-    
 
-    if (computerMove === 'The computer plays rock') {
-        wordOne.innerText = `${move} ${computerMove} It's a tie`;
-        tieCount++
-        tieText.innerText = tieCount;
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
-    } else if (computerMove === 'The computer plays paper') {
-        wordOne.innerText = `${move} ${computerMove} You lose this round.`;
-        loseCount++
-        loseText.innerText = loseCount;
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
+    return cMove;
+}
+
+function playerMove(pMove) {
+    const cMove = computerMove();
+    let result = '';
+
+    if (pMove === 'Rock') {
+        if (cMove == 'Paper') {
+            result = 'You lose';
+            loseCount++;
+            loseText.innerText = loseCount;
+            console.log(cMove);
+        } else if (cMove == 'Scissors') {
+            result = 'You win';
+            winCount++;
+            winText.innerText = winCount;
+            console.log(cMove);
+        } else {
+            result = 'Its a tie';
+            tieCount++;
+            tieText.innerHTML = tieCount;
+            console.log(cMove);
+        }
+    } else if (pMove === 'Paper') {
+        if (cMove == 'Paper') {
+            result = 'Its a tie';
+            tieCount++;
+            tieText.innerText = tieCount;
+            console.log(cMove);
+        } else if (cMove == 'Scissors') {
+            result = 'You lose';
+            loseCount++;
+            loseText.innerText = loseCount;
+            console.log(cMove);
+        } else {
+            result = 'You win';
+            winCount++;
+            winText.innerText = winCount;
+            console.log(cMove);
+        }
     } else {
-        wordOne.innerText = `${move} ${computerMove} You win this round.`;
-        winCount++
-        winText.innerText = winCount;
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
+        if (cMove == 'Paper') {
+            result = 'You win';
+            winCount++;
+            winText.innerText = winCount;
+            console.log(cMove);
+        } else if (cMove == 'Scissors') {
+            result = 'Its a tie';
+            tieCount++;
+            tieText.innerText = tieCount;
+            console.log (cMove);
+        } else {
+            result = 'You lose';
+            loseCount++;
+            loseText.innerHTML = loseCount;
+            console.log(cMove);
+        }
     }
 
+    wordOne.innerText = `You played ${pMove}. The computer played ${cMove}. ${result}.`;
+    setTimeout(() => { 
+        wordOne.innerText = '';
+    }, 3000);
+};
+
+stone.addEventListener('click', () => {    
+    playerMove('Rock');
 })
-
-
-
 
 tissue.addEventListener('click', () => {
-    const number = Math.random();
-    wordOne.style.display = 'block';
-    let move = 'You play paper.'
-
-    if (number >= 0 && number < 1 / 3) {
-        computerMove = 'The computer plays rock.';
-    } else if (number >= 1 / 3 && number < 2 / 3) {
-        computerMove = 'The computer plays paper.';
-    } else if (number >= 2 / 3) {
-        computerMove = 'The computer plays scissors.';
-    }
-    
-
-    if (computerMove === 'The computer plays rock') {
-        wordOne.innerText = `${move} ${computerMove} You win this round.`;
-        winCount++;
-        winText.innerText = winCount; 
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
-    } else if (computerMove === 'The computer plays paper') {
-        wordOne.innerText = `${move} ${computerMove} Its a tie.`;
-        tieCount++;
-        tieText.innerText = tieCount;
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
-    } else {
-        wordOne.innerText = `${move} ${computerMove} You lose this round.`;
-        loseCount++;
-        loseText.innerText = loseCount;
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
-    }
+    playerMove('Paper');
 })
-
-
 
 cutter.addEventListener('click', () => {
-    const number = Math.random();
-    wordOne.style.display = 'block';
-    let move = 'You play scissors.'
-
-    if (number >= 0 && number < 1 / 3) {
-        computerMove = 'The computer plays rock.';
-    } else if (number >= 1 / 3 && number < 2 / 3) {
-        computerMove = 'The computer plays paper.';
-    } else if (number >= 2 / 3) {
-        computerMove = 'The computer plays scissors.';
-    }
-    
-
-    if (computerMove === 'The computer plays rock') {
-        wordOne.innerText = `${move} ${computerMove} You lose this round.`;
-        loseCount++;
-        loseText.innerText = loseCount;
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
-    } else if (computerMove === 'The computer plays paper') {
-        wordOne.innerText = `${move} ${computerMove} You win this round.`;
-        winCount++;
-        winText.innerText = winCount;
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
-    } else {
-        wordOne.innerText = `${move} ${computerMove} Its a tie.`;
-        tieCount++;
-        tieText.innerText = tieCount;
-        setTimeout(() => {
-            wordOne.style.display = 'none';
-        }, 6000)
-    }
+    playerMove('Scissors');
 })
 
-reset.addEventListener('click', () => {
+reset.onclick = resetGame;
+
+function resetGame() {
     winCount = 0;
-    tieCount = 0;
     loseCount = 0;
+    tieCount = 0;
 
     winText.innerText = winCount;
-    tieText.innerText = tieCount;
     loseText.innerText = loseCount;
-
-    setTimeout(() => {
-        wordOne.style.display = 'none';
-    })
-})
+    tieText.innerText = tieCount;
+};
